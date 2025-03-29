@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<meta
+        http-equiv="content-type"
+        content="text/html;charset=utf-8"
+/>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+          content="love, book, horror, ecommerce, store, html, thymeleaf, template, bookshop, romantic, products, category, online"
+    />
+    <title>Seratonin Book Shop</title>
+    <link rel="icon" href="images/logo/logo.jpg" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .no-underline-hover {
+        text-decoration: none;
+        }
+
+        .no-underline-hover:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<!--************************************
+            Header Start
+    *************************************-->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!--************************************
+        Header End
+*************************************-->
+
+<section class="inner-section profile-part">
+    <div class="container">
+        <div class="row">
+            <!-- Order History Section -->
+            <div class="col-lg-12 mt-5">
+                <div class="account-card p-4 rounded shadow-sm">
+                    <div class="account-title mb-3">
+                        <h4>Lịch sử đặt hàng</h4>
+                    </div>
+                    <div class="account-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Mã Order</th>
+                                    <th scope="col">Ngày đặt</th>
+                                    <th scope="col">Tổng tiền</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Hành động</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${orderByUser}">
+                                    <td class="table-serial">[[${item.orderId}]]</td>
+                                    <td class="table-name">[[${item.orderDate}]]</td>
+                                    <td class="table-price">[[${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')} + ' VND']]</td>
+                                    <td class="table-address">[[${item.address}]]</td>
+                                    <td class="table-brand">[[${item.phone}]]</td>
+                                    <td class="table-status">
+                                        <span th:if="${item.status==0}" class="badge badge-warning">Chờ xác nhận</span>
+                                        <span th:if="${item.status==1}" class="badge badge-info">Đang giao hàng</span>
+                                        <span th:if="${item.status==2}" class="badge badge-success">Đã thanh toán</span>
+                                        <span th:if="${item.status==3}" class="badge badge-danger">Đã hủy</span>
+                                    </td>
+                                    <td class="table-action">
+                                        <a class="view text-primary mr-5 no-underline-hover" th:href="@{'/order/detail/'+${item.orderId}}" title="Xem chi tiết">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a class="trash text-danger me-2" href="javascript:void(0);" title="Hủy đơn hàng" th:data-id="${item.orderId}" onclick="showConfigCancelModalDialog(this.getAttribute('data-id'))" th:if="${item.status==0}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        <a class="trash text-muted" href="javascript:void(0);" title="Không thể huỷ đơn hàng này" style="cursor: not-allowed" th:if="${item.status!=0}">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <li th:each="pageNumber : ${pageNumbers}" th:if="${orderByUser.totalPages > 0}" class="page-item">
+                                    <a class="page-link" th:href="@{/order(size=${orderByUser.size}, page=${pageNumber})}" th:classappend="${pageNumber==orderByUser.number + 1} ? ' active' : ''">
+                                        [[${pageNumber}]]
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Cancel Order Confirmation Modal -->
+<div class="modal fade" id="configmationCancelId" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button class="modal-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body p-4">
+                <h5 class="modal-title mb-3">Xác nhận hủy đơn hàng</h5>
+                <p>Bạn có muốn hủy đơn hàng có mã "<span class="text-danger" id="idCancel"></span>" không?</p>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+                    <a id="yesOptionCanCel" type="button" class="btn btn-danger">Có</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Order Script -->
+<script>
+    function showConfigCancelModalDialog(id) {
+        document.getElementById('idCancel').textContent = id;
+        document.getElementById('yesOptionCanCel').href = '/order/cancel/' + id;
+        var cancelModal = new bootstrap.Modal(document.getElementById('configmationCancelId'));
+        cancelModal.show();
+    }
+</script>
+
+
+<!--************************************
+            Footer Start
+    *************************************-->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+
+<!--************************************
+        Footer End
+*************************************-->
+
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+
+<!--&lt;!&ndash; Contact Javascript File &ndash;&gt;-->
+<!--<script src="mail/jqBootstrapValidation.min.js"></script>-->
+
+<!--&lt;!&ndash; Template Javascript &ndash;&gt;-->
+<!--<script src="js/main.js"></script>-->
+</body>
+</html>

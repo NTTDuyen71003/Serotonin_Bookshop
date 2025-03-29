@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Order Confirmation</title>
+    <style>
+        body, table, td, a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        table, td {
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 0;
+            padding: 0;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #f4f4f4;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            padding: 40px 0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .hero {
+            padding: 40px 30px 20px 30px;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 30px;
+            font-weight: 750;
+            line-height: 36px;
+            color: #333333;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #666666;
+        }
+        .order-summary, .address-date, .footer {
+            padding: 0 30px 40px 30px;
+        }
+        .order-summary table, .address-date table {
+            width: 100%;
+        }
+        .order-summary th, .order-summary td {
+            padding: 10px;
+            font-size: 16px;
+        }
+        .order-summary th {
+            background-color: #eeeeee;
+            font-weight: 750;
+            text-align: left;
+        }
+        .order-summary td {
+            text-align: left;
+        }
+        .order-summary .total, .order-summary .shipping {
+            font-size: 20px;
+            font-weight: 750;
+            color: red;
+            border-top: 2px solid #eeeeee;
+            border-bottom: 2px solid #eeeeee;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .address-date .column {
+            width: 50%;
+            padding: 10px 0;
+        }
+        .address-date .column td {
+            font-size: 18px;
+            font-weight: 800;
+            text-align: left;
+        }
+        .address-date .column p {
+            font-size: 16px;
+            margin: 0;
+            color: #333333;
+        }
+        .footer p {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 24px;
+            color: #555;
+            text-align: center;
+        }
+        .footer p.strong {
+            font-weight: 800;
+            color:#FF6699;
+        }
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+            }
+            .hero, .order-summary, .address-date, .footer {
+                padding: 20px !important;
+            }
+            .address-date .column {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<table class="container">
+    <!-- Hero Section -->
+    <tr>
+        <td class="hero">
+            <h2>Chúc mừng đã đặt hàng thành công!</h2>
+            <p>Chúng tôi sẽ tiến hành xử lý đơn hàng sớm nhất, bạn vui lòng chờ nhé!</p>
+        </td>
+    </tr>
+    <!-- Order Summary -->
+    <tr>
+        <td class="order-summary">
+            <table>
+                <tr>
+                    <td style="padding: 20px 0 10px 0; font-size: 20px; font-weight: 600; border-bottom: 2px solid #eeeeee;">Đơn hàng của bạn:</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            <tr th:each="item, iState : ${cartItems}">
+                                <td>[[${iState.index + 1}]]</td>
+                                <td>[[${item.product.productName}]]</td>
+                                <td>[[${item.quantity}]]</td>
+                                <td>[[${#numbers.formatDecimal((item.product.price - (item.product.price * item.product.discount / 100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}]] VND</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="shipping">Phí giao hàng:</td>
+                                <td class="shipping">10.000 VND</td>
+                            </tr>
+                            <tr>
+                                <td class="total">Tổng tiền:</td>
+                                <td class="total">[[${#numbers.formatDecimal(totalPrice + 10000, 1, 'DEFAULT', 0, 'DEFAULT')}]] VND</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Address and Date -->
+    <tr>
+        <td class="address-date">
+            <table>
+                <tr>
+                    <td class="column" align="left">
+                        <p>Địa chỉ giao hàng</p>
+                        <p>[[${orderFinal.address}]]</p>
+                    </td>
+                    <td class="column" align="right">
+                        <p>Ngày đặt hàng</p>
+                        <p>[[${orderFinal.orderDate}]]</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Footer -->
+    <tr>
+        <td class="footer">
+            <p class="strong">Serotonin</p>
+            <p>Cảm ơn bạn đã tin tưởng Serotonin - Chúc bạn một ngày vui vẻ!</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

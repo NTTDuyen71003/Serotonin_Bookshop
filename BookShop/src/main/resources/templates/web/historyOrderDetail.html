@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<meta
+        http-equiv="content-type"
+        content="text/html;charset=utf-8"
+/>
+<head>
+    <meta charset="UTF-8" />
+    <meta
+            name="keywords"
+            content="love, book, horror, ecommerce, store, html, thymeleaf, template, bookshop, romantic, products, category, online"
+    />
+    <title>Seratonin Book Shop</title>
+    <link rel="icon" href="/images/logo/logo.jpg" />
+    <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+
+<!--************************************
+            Header Start
+    *************************************-->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!--************************************
+        Header End
+*************************************-->
+
+<section class="inner-section profile-part">
+    <div class="container">
+        <div class="row">
+            <!-- Order History Section -->
+            <div class="col-lg-12 mt-5">
+                <div class="account-card p-4 rounded shadow-sm">
+                    <div class="account-title mb-3">
+                        <h4>Chi tiết đơn hàng</h4>
+                    </div>
+                    <div class="account-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Ảnh</th>
+                                    <th scope="col">Tên sách</th>
+                                    <th scope="col">Đơn giá</th>
+                                    <th scope="col">Số lượng</th>
+                                    <th scope="col">Tổng tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item,iState : ${orderDetail}">
+                                    <td class="table-serial">[[${iState.index + 1}]]</td>
+                                    <td class="table-name">
+                                        <img style="width:100px;height:100px;" th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
+                                    </td>
+                                    <td class="table-price">[[${item.product.productName}]]</td>
+                                    <td class="table-address">[[${#numbers.formatDecimal(item.price - (item.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+ ' VND']]</td>
+                                    <td class="table-brand">[[${item.quantity}]]</td>
+                                    <td class="table-status">[[${#numbers.formatDecimal((item.price - (item.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}+ ' VND']]
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a th:href="@{/order}" class="btn btn-primary">
+                        <i class="fa-solid fa-backward" style="margin-right: 5px;"></i>
+                        Quay lại lịch sử đơn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--************************************
+            Footer Start
+    *************************************-->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+
+<!--************************************
+        Footer End
+*************************************-->
+
+<script src="/lib/easing/easing.min.js"></script>
+<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="/vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="/vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

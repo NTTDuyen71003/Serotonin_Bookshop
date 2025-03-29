@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+		.btn-white {
+            background-color: white !important;
+            color: black !important;
+        }
+        .navbar-nav .nav-item .nav-link .fas {
+            font-size: 20px; /* Adjust icon size if needed */
+        }
+        .navbar-nav .nav-item.logout-icon {
+            display: flex;
+            align-items: center;
+        }
+	</style>
+</head>
+<body>
+<th:block th:fragment="header">
+	<div class="main-header">
+		<!-- Logo Header -->
+		<div class="logo-header">
+			<a th:href="@{/admin/home}" class="logo">
+				<img src="/images/logo/logo.png" width="180px" alt="navbar brand" class="navbar-brand">
+			</a>
+			<button class="navbar-toggler sidenav-toggler ml-auto btn-white" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i class="icon-menu"></i>
+                    </span>
+			</button>
+			<button class="topbar-toggler more btn-white"><i class="icon-options-vertical"></i></button>
+			<div class="nav-toggle">
+				<button class="btn btn-toggle toggle-sidebar btn-white">
+					<i class="icon-menu"></i>
+				</button>
+			</div>
+		</div>
+		<!-- End Logo Header -->
+
+		<!-- Navbar Header -->
+		<nav class="navbar navbar-header navbar-expand-lg" style="background-color: #FF3366;">
+			<div class="container-fluid">
+				<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+					<li class="nav-item toggle-nav-search hidden-caret">
+						<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+							<i class="fa fa-search"></i>
+						</a>
+					</li>
+
+					<li class="nav-item dropdown hidden-caret logout-icon">
+						<a class="nav-link" th:href="@{/logout}">
+							<i class="fas fa-sign-out-alt"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- End Navbar -->
+	</div>
+</th:block>
+</body>
+</html>

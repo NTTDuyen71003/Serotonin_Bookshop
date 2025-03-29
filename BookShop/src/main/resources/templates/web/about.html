@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta
+        http-equiv="content-type"
+        content="text/html;charset=utf-8"/>
+<head>
+    <meta charset="UTF-8" />
+    <title>Serotonin Book Shop</title>
+    <link rel="icon" href="images/logo/logo.jpg" />
+    <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<!--************************************
+            Header Start
+    *************************************-->
+<header th:replace="~{/web/fragments/header :: header}"></header>
+<!--************************************
+        Header End
+*************************************-->
+
+<section class="about-choose">
+    <div class="container">
+        <div class="row">
+            <div class="col-11 col-md-9 col-lg-7 col-xl-6 mx-auto">
+                <div class="section-heading">
+                    <h2 style="margin-top:50px;">Tại sao mọi người chọn Serotonin</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="choose-card">
+                    <div class="choose-icon"><i class="icofont-fruits"></i></div>
+                    <div class="choose-text">
+                        <h4>Sách mới</h4>
+                        <p>
+                            Chúng tôi luôn cập nhật những cuốn sách mới nhất, đảm bảo rằng bạn luôn có thể tìm thấy những cuốn sách hay và phù hợp với sở thích của mình.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-card">
+                    <div class="choose-icon">
+                        <i class="icofont-vehicle-delivery-van"></i>
+                    </div>
+                    <div class="choose-text">
+                        <h4>Giao hàng trong vòng một giờ</h4>
+                        <p>
+                            Dịch vụ giao hàng nhanh chóng của chúng tôi đảm bảo bạn nhận được sách trong vòng một giờ sau khi đặt hàng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-card">
+                    <div class="choose-icon"><i class="icofont-loop"></i></div>
+                    <div class="choose-text">
+                        <h4>Chính sách hoàn trả nhanh chóng</h4>
+                        <p>
+                            Chúng tôi cung cấp chính sách hoàn trả dễ dàng và nhanh chóng, giúp bạn mua sắm không lo lắng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="choose-card">
+                    <div class="choose-icon"><i class="icofont-support"></i></div>
+                    <div class="choose-text">
+                        <h4>Nhóm hỗ trợ tức thì</h4>
+                        <p>
+                            Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn 24/7, giải đáp mọi thắc mắc và vấn đề của bạn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--************************************
+             Footer Start
+     *************************************-->
+<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+
+<!--************************************
+        Footer End
+*************************************-->
+
+</body>
+</html>

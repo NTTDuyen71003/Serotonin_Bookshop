@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta
+        http-equiv="content-type"
+        content="text/html;charset=utf-8"
+/>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          name="keywords"
+          content="love, book, horror, ecommerce, store, html, thymeleaf, template, bookshop, romantic, products, category, online"
+  />
+  <title>Serotonin Book Shop</title>
+  <link rel="icon" href="images/logo/logo.jpg" />
+  <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+  <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/user-auth.css" />
+  <style>
+    .user-form-part {
+        background: url('https://i.pinimg.com/736x/14/b1/20/14b120395572c79e7d0e7a7972d8a00e.jpg') no-repeat center center;
+        background-size: cover;
+    }
+  </style>
+</head>
+<body>
+<section class="user-form-part">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+        <div class="user-form-logo">
+          <a th:href="@{/}"><img src="images/logo/logo.png" alt="logo" /></a>
+        </div>
+        <div class="user-form-card">
+          <div class="user-form-title">
+            <h2>Đăng Ký Ngay!</h2>
+            <p>Đăng Ký Để Bắt Đầu Cuộc Phiêu Lưu Của Bạn!</p>
+          </div>
+          <div class="user-form-group">
+            <!--<ul class="user-form-social">
+
+              <li>
+                <a class="facebook" href="javascript:void(0);">
+                  <i class="fab fa-facebook-f"></i>Join with Facebook
+                </a>
+              </li>
+
+              <li>
+                <a class="google" href="javascript:void(0);">
+                  <i class="fab fa-google"></i>Join with Google
+                </a>
+              </li>
+
+            </ul>
+            <div class="user-form-divider"><p>hoặc</p></div>
+-->
+            <form th:action="@{/register}" method="post" th:object="${user}" class="user-form">
+              <div class="form-group">
+                <input
+                        type="email"
+                        th:field="*{email}"
+                        id="email"
+                        class="form-control"
+                        placeholder="Địa chỉ Email"
+                        autocomplete="off"
+                        required="required"
+                />
+                <small th:if="${error}" th:text="${error}" class="text-danger"></small>
+              </div>
+
+              <div class="form-group">
+                <input
+                        type="text"
+                        th:field="*{name}"
+                        id="name"
+                        class="form-control"
+                        placeholder="Họ và tên"
+                        autocomplete="off"
+                        required="required"
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                        type="password"
+                        th:field="*{password}"
+                        class="form-control"
+                        id="myPass"
+                        name="password"
+                        placeholder="Mật khẩu"
+                        required="required"
+                />
+              </div>
+
+              <div class="form-check mb-3">
+                <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        onclick="hidePass()"/>
+                <label class="form-check-label" >Hiển thị mật khẩu</label>
+              </div>
+
+              <div class="form-button">
+                <button type="submit">Đăng Ký</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="user-form-remind">
+          <p>Bạn đã có tài khoản?<a th:href="@{/login}">Đăng nhập tại đây</a></p>
+        </div>
+        <div class="user-form-footer">
+          <p>Serotonin 2024 | &COPY; Developer by <a href="javascript:void(0);">21DTHD6</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function hidePass() {
+      var x = document.getElementById("myPass");
+      if (x.type === "password") {
+          x.type = "text";
+      } else {
+          x.type = "password";
+      }
+  }
+</script>
+
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<!--<script src="vendor/countdown/countdown.min.js"></script>-->
+<!--<script src="vendor/niceselect/nice-select.min.js"></script>-->
+<!--<script src="vendor/slickslider/slick.min.js"></script>-->
+<!--<script src="vendor/venobox/venobox.min.js"></script>-->
+<!--<script src="js/nice-select.js"></script>-->
+<!--<script src="js/countdown.js"></script>-->
+<!--<script src="js/accordion.js"></script>-->
+<!--<script src="js/venobox.js"></script>-->
+<!--<script src="js/slick.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+</body>
+</html>

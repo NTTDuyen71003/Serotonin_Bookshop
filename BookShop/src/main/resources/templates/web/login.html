@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta
+        http-equiv="content-type"
+        content="text/html;charset=utf-8"
+/>
+<head>
+  <meta charset="UTF-8" />
+  <title>Serotonin Book Shop</title>
+  <link rel="icon" href="images/logo/logo.jpg" />
+  <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+  <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+  <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/user-auth.css" />
+  <style>
+    .user-form-part {
+        background: url('https://i.pinimg.com/736x/d3/8a/17/d38a17289171eb8bdae87dcf65c21235.jpg') no-repeat center center;
+        background-size: cover;
+
+    }
+  </style>
+</head>
+<body>
+<section class="user-form-part">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+        <div class="user-form-logo">
+          <a th:href="@{/}"><img src="images/logo/logo.png" alt="logo" /></a>
+        </div>
+        <div class="user-form-card">
+          <div class="user-form-title">
+            <h2>Đăng nhập!</h2>
+            <p>Đăng Nhập Để Bước Vào Thế Giới Của Chúng Tôi!</p>
+            <br>
+            <div class="alert alert-success" role="alert"
+                 th:if="${message}">
+              <strong>Chúc mừng !</strong>  Bạn đã đăng ký và kích hoạt tài khoản thành công!
+            </div>
+
+          </div>
+          <div class="user-form-group">
+           <!-- <ul class="user-form-social">
+              <li>
+                <a href="javascript:void(0);" class="facebook">
+                  <i class="fab fa-facebook-f"></i>login with Facebook
+                </a>
+              </li>
+
+              <li>
+                <a href="javascript:void(0);" class="google">
+                  <i class="fab fa-google"></i>login with Google
+                </a>
+              </li>
+
+            </ul>
+            <div class="user-form-divider"><p>hoặc</p></div>-->
+
+            <form th:action="@{/doLogin}" method="post" class="user-form">
+
+              <!-- error message -->
+              <div th:if="${param.error}">
+                <div class="alert alert-danger"><span>Tài khoản hoặc mật khẩu không chính xác!</span></div>
+              </div>
+              <br>
+              <div class="form-group">
+                <input
+                        type="email"
+                        name="username"
+                        class="form-control"
+                        placeholder="Địa chỉ Email"
+                        autocomplete="off"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        id="myPass"
+                        placeholder="Mật khẩu"
+                />
+              </div>
+              <div class="form-check mb-3">
+                <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="check"
+                        onclick="hidePass()"
+                />
+                <label class="form-check-label" for="check" >Hiển thị mật khẩu</label>
+              </div>
+              <div class="form-button">
+                <button type="submit">Đăng nhập</button>
+                <p>
+                  Quên Mật Khẩu?
+                  <a th:href="@{/forgotPassword}">Tại đây</a>
+                </p>
+              </div>
+            </form>
+
+          </div>
+        </div>
+        <div class="user-form-remind">
+          <p>
+            Không Có Bất Kỳ Tài Khoản?<a th:href="@{/register}">Đăng Ký Tại Đây</a>
+          </p>
+        </div>
+        <div class="user-form-footer">
+          <p>Serotonin 2024 | &COPY; Developer by <a href="javascript:void(0);">21DTHD6</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function hidePass() {
+      var x = document.getElementById("myPass");
+      if (x.type === "password") {
+          x.type = "text";
+      } else {
+          x.type = "password";
+      }
+  }
+</script>
+
+<script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+<script src="vendor/bootstrap/popper.min.js"></script>
+<script src="vendor/bootstrap/bootstrap.min.js"></script>
+<!--<script src="vendor/countdown/countdown.min.js"></script>-->
+<!--<script src="vendor/niceselect/nice-select.min.js"></script>-->
+<!--<script src="vendor/slickslider/slick.min.js"></script>-->
+<!--<script src="vendor/venobox/venobox.min.js"></script>-->
+<!--<script src="js/nice-select.js"></script>-->
+<!--<script src="js/countdown.js"></script>-->
+<!--<script src="js/accordion.js"></script>-->
+<!--<script src="js/venobox.js"></script>-->
+<!--<script src="js/slick.js"></script>-->
+<!--<script src="js/main.js"></script>-->
+</body>
+</html>
